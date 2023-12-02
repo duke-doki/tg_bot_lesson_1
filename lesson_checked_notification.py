@@ -38,13 +38,11 @@ if __name__ == '__main__':
                                  можно приступать к следующему уроку!'''
 
                 bot.send_message(
-                    text='''У вас проверили работу "{lesson}" 
-                         \n\n{link} \n\n{conclusion}'''.format(
-                        lesson=response_details['new_attempts'][0][
-                            'lesson_title'],
-                        link=response_details['new_attempts'][0]['lesson_url'],
-                        conclusion=conclusion
-                    ),
+                    text=f'''У вас проверили работу 
+                    \n\n"{response_details['new_attempts'][0]['lesson_title']}" 
+                    \n\n{response_details['new_attempts'][0]['lesson_url']} 
+                    \n\n{conclusion}'''
+                    ,
                     chat_id=chat_id
                 )
         except requests.exceptions.ReadTimeout:
