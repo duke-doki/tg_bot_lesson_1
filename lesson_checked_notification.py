@@ -23,15 +23,15 @@ if __name__ == '__main__':
         try:
             response = requests.get(url, headers=headers, params=params)
             response.raise_for_status()
-            response_json = response.json()
+            response_details = response.json()
 
-            if 'timestamp_to_request' in response_json:
-                params = {'timestamp': response_json['timestamp_to_request']}
+            if 'timestamp_to_request' in response_details:
+                params = {'timestamp': response_details['timestamp_to_request']}
 
-            elif 'last_attempt_timestamp' in response_json:
-                params = {'timestamp': response_json['last_attempt_timestamp']}
+            elif 'last_attempt_timestamp' in response_details:
+                params = {'timestamp': response_details['last_attempt_timestamp']}
 
-                if response_json['new_attempts'][0]['is_negative']:
+                if response_details['new_attempts'][0]['is_negative']:
                     conclusion = 'К сожалению, в работе нашлись ошибки.'
                 else:
                     conclusion = '''Преподавателю всё понравилось, 
@@ -40,9 +40,9 @@ if __name__ == '__main__':
                 bot.send_message(
                     text='''У вас проверили работу "{lesson}" 
                          \n\n{link} \n\n{conclusion}'''.format(
-                        lesson=response_json['new_attempts'][0][
+                        lesson=response_details['new_attempts'][0][
                             'lesson_title'],
-                        link=response_json['new_attempts'][0]['lesson_url'],
+                        link=response_details['new_attempts'][0]['lesson_url'],
                         conclusion=conclusion
                     ),
                     chat_id=chat_id
