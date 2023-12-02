@@ -1,4 +1,5 @@
 import os
+import time
 
 import requests
 import telegram
@@ -15,6 +16,7 @@ if __name__ == '__main__':
     bot = telegram.Bot(token=telegram_token)
 
     params = {}
+    reconnection_tries = 0
     while True:
         updates = bot.get_updates()
         chat_id = updates[0]['message']['chat']['id']
@@ -45,8 +47,15 @@ if __name__ == '__main__':
                     ),
                     chat_id=chat_id
                 )
-        except (
-                requests.exceptions.ReadTimeout,
-                requests.exceptions.ConnectionError
-        ):
+        except requests.exceptions.ReadTimeout:
+            continue
+        except requests.exceptions.ConnectionError as e:
+            print(f'A connection error occurred: {e}')
+            reconnection_tries += 1
+            if reconnection_tries <= 1:
+                print('Retrying...')
+            else:
+                print('Retry after 5 seconds...')
+                time.sleep(5)
+        else:
             continue
