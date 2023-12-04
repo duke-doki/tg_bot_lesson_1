@@ -41,8 +41,7 @@ if __name__ == '__main__':
                     text=f'''У вас проверили работу 
                     \n\n"{response_lesson['new_attempts'][0]['lesson_title']}" 
                     \n\n{response_lesson['new_attempts'][0]['lesson_url']} 
-                    \n\n{conclusion}'''
-                    ,
+                    \n\n{conclusion}''',
                     chat_id=chat_id
                 )
         except requests.exceptions.ReadTimeout:
