@@ -55,5 +55,3 @@ if __name__ == '__main__':
             else:
                 print('Retry after 5 seconds...')
                 time.sleep(5)
-        else:
-            continue
