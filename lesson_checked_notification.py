@@ -1,6 +1,6 @@
 import os
 import time
-
+import logging
 import requests
 import telegram
 from dotenv import load_dotenv
@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 if __name__ == '__main__':
     load_dotenv()
-
+    logging.basicConfig(level=logging.DEBUG)
     devman_token = os.environ['DEVMAN_TOKEN']
     headers = {'Authorization': devman_token}
     url = 'https://dvmn.org/api/long_polling/'
