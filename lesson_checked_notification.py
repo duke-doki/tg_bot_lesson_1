@@ -5,10 +5,10 @@ import requests
 import telegram
 from dotenv import load_dotenv
 
+logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == '__main__':
     load_dotenv()
-    logging.basicConfig(level=logging.DEBUG)
     logging.debug('Сообщение уровня DEBUG')
     devman_token = os.environ['DEVMAN_TOKEN']
     headers = {'Authorization': devman_token}
