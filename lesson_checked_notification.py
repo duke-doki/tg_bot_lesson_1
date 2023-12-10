@@ -59,10 +59,11 @@ if __name__ == '__main__':
         except requests.exceptions.ReadTimeout:
             continue
         except requests.exceptions.ConnectionError as e:
-            print(f'A connection error occurred: {e}')
+            logger.info('A connection error occurred:')
+            logger.exception(e)
             reconnection_tries += 1
             if reconnection_tries <= 1:
-                print('Retrying...')
+                logger.info('Retrying...')
             else:
-                print('Retry after 5 seconds...')
+                logger.info('Retry after 5 seconds...')
                 time.sleep(5)
