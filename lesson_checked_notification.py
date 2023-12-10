@@ -10,23 +10,22 @@ from logging.handlers import RotatingFileHandler
 class MyLogsHandler(logging.Handler):
     def emit(self, record):
         log_entry = self.format(record)
-        bot.send_message(record)
+        bot.send_message(text=log_entry, chat_id=master_id)
 
 
 if __name__ == '__main__':
     load_dotenv()
-    logger = logging.getLogger("notification_bot_logger")
-    logger.setLevel(logging.INFO)
-
-
-    logger.info("Я новый логер!")
     devman_token = os.environ['DEVMAN_TOKEN']
     headers = {'Authorization': devman_token}
     url = 'https://dvmn.org/api/long_polling/'
     telegram_token = os.environ['TELEGRAM_TOKEN']
     bot = telegram.Bot(token=telegram_token)
+    master_id = 421320156
 
+    logger = logging.getLogger('notification_bot_logger')
+    logger.setLevel(logging.INFO)
     logger.addHandler(MyLogsHandler())
+    logger.info("Бот запущен!")
 
     params = {}
     reconnection_tries = 0
