@@ -4,17 +4,29 @@ import logging
 import requests
 import telegram
 from dotenv import load_dotenv
+from logging.handlers import RotatingFileHandler
+
+
+class MyLogsHandler(logging.Handler):
+    def emit(self, record):
+        log_entry = self.format(record)
+        bot.send_message(record)
 
 
 if __name__ == '__main__':
     load_dotenv()
-    logging.basicConfig(level=logging.DEBUG)
-    logging.debug('Сообщение уровня DEBUG')
+    logger = logging.getLogger("notification_bot_logger")
+    logger.setLevel(logging.INFO)
+
+
+    logger.info("Я новый логер!")
     devman_token = os.environ['DEVMAN_TOKEN']
     headers = {'Authorization': devman_token}
     url = 'https://dvmn.org/api/long_polling/'
     telegram_token = os.environ['TELEGRAM_TOKEN']
     bot = telegram.Bot(token=telegram_token)
+
+    logger.addHandler(MyLogsHandler())
 
     params = {}
     reconnection_tries = 0
