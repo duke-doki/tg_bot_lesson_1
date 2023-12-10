@@ -4,7 +4,6 @@ import logging
 import requests
 import telegram
 from dotenv import load_dotenv
-from logging.handlers import RotatingFileHandler
 
 
 class MyLogsHandler(logging.Handler):
