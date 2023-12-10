@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 if __name__ == '__main__':
     load_dotenv()
     logging.basicConfig(level=logging.DEBUG)
+    logging.debug('Сообщение уровня DEBUG')
     devman_token = os.environ['DEVMAN_TOKEN']
     headers = {'Authorization': devman_token}
     url = 'https://dvmn.org/api/long_polling/'
