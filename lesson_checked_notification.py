@@ -5,6 +5,8 @@ import requests
 import telegram
 from dotenv import load_dotenv
 
+logger = logging.getLogger('notification_bot_logger')
+
 
 class LogsHandler(logging.Handler):
     def __init__(self, bot, master_id):
@@ -20,13 +22,11 @@ class LogsHandler(logging.Handler):
 if __name__ == '__main__':
     load_dotenv()
     devman_token = os.environ['DEVMAN_TOKEN']
+    telegram_token = os.environ['TELEGRAM_TOKEN']
+    master_id = os.environ['MASTER_ID']
     headers = {'Authorization': devman_token}
     url = 'https://dvmn.org/api/long_polling/'
-    telegram_token = os.environ['TELEGRAM_TOKEN']
     bot = telegram.Bot(token=telegram_token)
-    master_id = os.environ['MASTER_ID']
-
-    logger = logging.getLogger('notification_bot_logger')
     logger.setLevel(logging.INFO)
     logger.addHandler(LogsHandler(bot, master_id))
     logger.info("Бот запущен!")
