@@ -7,9 +7,14 @@ from dotenv import load_dotenv
 
 
 class LogsHandler(logging.Handler):
+    def __init__(self, bot, master_id):
+        super().__init__()
+        self.bot = bot
+        self.master_id = master_id
+
     def emit(self, record):
         log_entry = self.format(record)
-        bot.send_message(text=log_entry, chat_id=master_id)
+        self.bot.send_message(text=log_entry, chat_id=self.master_id)
 
 
 if __name__ == '__main__':
@@ -23,7 +28,7 @@ if __name__ == '__main__':
 
     logger = logging.getLogger('notification_bot_logger')
     logger.setLevel(logging.INFO)
-    logger.addHandler(LogsHandler())
+    logger.addHandler(LogsHandler(bot, master_id))
     logger.info("Бот запущен!")
 
     params = {}
