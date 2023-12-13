@@ -66,7 +66,7 @@ if __name__ == '__main__':
             logger.info('A connection error occurred:')
             logger.exception(e)
             reconnection_tries += 1
-            if reconnection_tries <= 1:
+            if reconnection_tries >= 1:
                 logger.info('Retrying...')
             else:
                 logger.info('Retry after 5 seconds...')
