@@ -17,6 +17,7 @@ pip install -r requirements.txt
 
 - TELEGRAM_TOKEN
 - DEVMAN_TOKEN
+- MASTER_ID
 
 1. Put `.env` file near `main.py`.
 2. `.env` contains text data without quotes.
@@ -27,6 +28,7 @@ For example, if you print `.env` content, you will see:
 $ cat .env
 TELEGRAM_TOKEN=6400824160:AAH...
 DEVMAN_TOKEN=Token 0aee...
+MASTER_ID=421...
 ```
 
 #### How to get

@@ -6,7 +6,7 @@ import telegram
 from dotenv import load_dotenv
 
 
-class MyLogsHandler(logging.Handler):
+class LogsHandler(logging.Handler):
     def emit(self, record):
         log_entry = self.format(record)
         bot.send_message(text=log_entry, chat_id=master_id)
@@ -19,11 +19,11 @@ if __name__ == '__main__':
     url = 'https://dvmn.org/api/long_polling/'
     telegram_token = os.environ['TELEGRAM_TOKEN']
     bot = telegram.Bot(token=telegram_token)
-    master_id = 421320156
+    master_id = os.environ['MASTER_ID']
 
     logger = logging.getLogger('notification_bot_logger')
     logger.setLevel(logging.INFO)
-    logger.addHandler(MyLogsHandler())
+    logger.addHandler(LogsHandler())
     logger.info("Бот запущен!")
 
     params = {}
