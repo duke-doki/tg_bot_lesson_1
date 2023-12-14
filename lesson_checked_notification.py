@@ -65,9 +65,9 @@ if __name__ == '__main__':
         except requests.exceptions.ConnectionError as e:
             logger.info('A connection error occurred:')
             logger.exception(e)
-            reconnection_tries += 1
-            if reconnection_tries >= 1:
-                logger.info('Retrying...')
+            if reconnection_tries > 10:
+                logger.info('Retry after 5 minutes...')
+                time.sleep(300)
             else:
-                logger.info('Retry after 5 seconds...')
-                time.sleep(5)
+                logger.info('Retrying...')
+                reconnection_tries += 1
