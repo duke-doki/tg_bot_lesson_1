@@ -33,9 +33,9 @@ if __name__ == '__main__':
 
     params = {}
     reconnection_tries = 0
+    updates = bot.get_updates()
+    chat_id = updates[0]['message']['chat']['id']
     while True:
-        updates = bot.get_updates()
-        chat_id = master_id
         try:
             response = requests.get(url, headers=headers, params=params)
             response.raise_for_status()
