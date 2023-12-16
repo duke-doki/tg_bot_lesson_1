@@ -29,13 +29,12 @@ if __name__ == '__main__':
     bot = telegram.Bot(token=telegram_token)
     logger.setLevel(logging.INFO)
     logger.addHandler(LogsHandler(bot, master_id))
-    logger.info("Бот запущен!")
 
     params = {}
-    reconnection_tries = 0
     updates = bot.get_updates()
-    chat_id = updates[0]['message']['chat']['id']
+    logger.info("Бот запущен!")
     while True:
+        reconnection_tries = 0
         try:
             response = requests.get(url, headers=headers, params=params)
             response.raise_for_status()
@@ -58,11 +57,10 @@ if __name__ == '__main__':
                     \n\n"{response_lesson['new_attempts'][0]['lesson_title']}" 
                     \n\n{response_lesson['new_attempts'][0]['lesson_url']} 
                     \n\n{conclusion}''',
-                    chat_id=chat_id
+                    chat_id=master_id
                 )
-        except requests.exceptions.ReadTimeout:
-            continue
-        except requests.exceptions.ConnectionError as e:
+        except (requests.exceptions.ReadTimeout,
+                requests.exceptions.ConnectionError) as e:
             logger.info('A connection error occurred:')
             logger.exception(e)
             if reconnection_tries > 10:
@@ -71,3 +69,7 @@ if __name__ == '__main__':
             else:
                 logger.info('Retrying...')
                 reconnection_tries += 1
+        except Exception as e:
+            logger.info('An unexpected error occurred:')
+            logger.exception(e)
+            break
