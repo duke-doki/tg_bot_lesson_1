@@ -33,8 +33,8 @@ if __name__ == '__main__':
     params = {}
     updates = bot.get_updates()
     logger.info("Бот запущен!")
+    reconnection_tries = 0
     while True:
-        reconnection_tries = 0
         try:
             response = requests.get(url, headers=headers, params=params)
             response.raise_for_status()
