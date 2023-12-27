@@ -72,4 +72,9 @@ if __name__ == '__main__':
         except Exception as e:
             logger.info('An unexpected error occurred:')
             logger.exception(e)
-            break
+            if reconnection_tries > 10:
+                logger.info('Retry after 5 minutes...')
+                time.sleep(300)
+            else:
+                logger.info('Retrying...')
+                reconnection_tries += 1
